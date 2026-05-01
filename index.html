@@ -4,198 +4,452 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Apps by Shafat Rasool</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1e3a8a;
+      --blue-mid: #2563eb;
+      --blue-light: #ebf4ff;
+      --accent: #38bdf8;
+      --text: #1a1f2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --card: #ffffff;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
-      margin: 0;
-      padding: 0;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
     }
 
-    header {
-      background-color: #1E88E5;
-      color: #fff;
-      padding: 40px 20px;
+    .hero {
+      background: var(--blue);
+      padding: 56px 24px 72px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.4em;
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: rgba(56,189,248,0.07);
     }
 
-    header p {
-      margin-top: 10px;
-      font-size: 1.1em;
-      opacity: 0.95;
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(56,189,248,0.05);
     }
 
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+    .hero-badge {
+      display: inline-block;
+      background: rgba(56,189,248,0.15);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(56,189,248,0.25);
+      margin-bottom: 18px;
     }
 
-    section {
-      margin-bottom: 40px;
+    .hero h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
     }
 
-    h2 {
-      color: #1E88E5;
-      margin-bottom: 10px;
+    .hero p {
+      color: #94a3b8;
+      font-size: 15px;
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto;
     }
 
-    h3 {
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: -32px auto 0;
+      padding: 0 20px 60px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 36px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .app-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 16px;
+      transition: box-shadow 0.2s;
+    }
+
+    .app-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+
+    .app-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .app-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .app-icon.blue   { background: #dbeafe; }
+    .app-icon.green  { background: #dcfce7; }
+    .app-icon.purple { background: #f3e8ff; }
+
+    .app-meta { flex: 1; }
+
+    .app-name {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .app-tagline { font-size: 13px; color: var(--muted); }
+
+    .app-status {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+
+    .app-status.live { background: #dcfce7; color: #166534; }
+
+    .app-desc {
+      font-size: 14px;
+      color: #4a5568;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .pill {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--blue-light);
+      color: var(--blue-mid);
+      border: 1px solid #bfdbfe;
+    }
+
+    .app-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-mid);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--blue); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--blue-mid); color: var(--blue-mid); }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .info-card-icon { font-size: 22px; margin-bottom: 10px; }
+
+    .info-card h3 {
+      font-size: 14px;
+      font-weight: 600;
       margin-bottom: 6px;
     }
 
-    p {
-      line-height: 1.6;
+    .info-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .contact-card {
+      background: var(--blue);
+      border-radius: 18px;
+      padding: 32px;
+      text-align: center;
     }
 
-    ul {
-      padding-left: 20px;
-    }
-
-    li {
+    .contact-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #fff;
       margin-bottom: 8px;
     }
 
-    a.button {
-      display: inline-block;
-      margin-top: 10px;
-      background-color: #1E88E5;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 6px;
+    .contact-card p { color: #94a3b8; font-size: 14px; margin-bottom: 18px; }
+
+    .contact-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 10px;
       text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.2s;
     }
 
-    a.button:hover {
-      background-color: #1565C0;
-    }
+    .contact-card a:hover { background: rgba(255,255,255,0.18); }
 
     footer {
       text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #777;
-      border-top: 1px solid #ddd;
+      font-size: 12px;
+      color: #a0aec0;
+      margin-top: 40px;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 500px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .stats-row { gap: 20px; }
+      .app-card { padding: 20px; }
     }
   </style>
 </head>
-
 <body>
 
-<header>
-  <h1>Apps by Shafat Rasool</h1>
-  <p>Privacy-focused Android apps designed with on-device processing and user control</p>
-</header>
+  <div class="hero">
+    <div class="hero-badge">Android Developer</div>
+    <h1>Shafat Rasool</h1>
+    <p>Privacy-focused Android apps built with on-device processing and full user control</p>
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Published Apps</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Servers Used</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">On-Device</div>
+      </div>
+    </div>
+  </div>
 
-<main>
+  <div class="container">
 
-  <!-- ABOUT -->
-  <section>
-    <h2>About</h2>
-    <p>
-      This page serves as a central information and privacy hub for Android applications
-      developed by <strong>Shafat Rasool</strong>.
-      All apps listed here are designed with a strong focus on user privacy,
-      minimal permissions, and on-device data processing.
-    </p>
-  </section>
+    <div class="section-label">Published Applications</div>
 
-  <!-- APPS LIST -->
-  <section>
-    <h2>Published Applications</h2>
-
-    <!-- NoCloud Password Manager -->
-    <h3>🔐 NoCloud Password Manager</h3>
-    <p>
-      An offline password manager that securely stores your credentials using strong encryption.
-      All data remains fully on your device.
-    </p>
-    <ul>
-      <li>No cloud storage</li>
-      <li>No servers involved</li>
-      <li>Passwords are encrypted and stored locally on the device</li>
-      <li>Only the app can access the encrypted data</li>
-    </ul>
-    <a
-      class="button"
-      href="https://play.google.com/store/apps/details?id=com.shafat.nocloudpasswordmanager"
-      target="_blank"
-    >
-      View on Google Play
-    </a>
-
-    <p style="margin-top: 6px;">
-      <strong>Privacy Policy:</strong>
-      <a href="https://shafatrasool.github.io/nocloud-privacy/" target="_blank">
-        View Privacy Policy
-      </a>
-    </p>
-
-    <hr style="margin: 30px 0;" />
+    <!-- Image to PDF -->
+    <div class="app-card">
+      <div class="app-card-header">
+        <img src="https://shafatrasool.github.io/icons/icon.png" width="54" height="54" style="border-radius:14px;object-fit:cover;flex-shrink:0;">
+        <div class="app-meta">
+          <div class="app-name">Image to PDF Converter</div>
+          <div class="app-tagline">Convert photos to PDF instantly</div>
+        </div>
+        <span class="app-status live">Live</span>
+      </div>
+      <p class="app-desc">Convert multiple images into a single PDF file directly on your device. Supports reordering, multiple page sizes, and quality settings — no uploads, no accounts required.</p>
+      <div class="feature-pills">
+        <span class="pill">Batch conversion</span>
+        <span class="pill">Drag to reorder</span>
+        <span class="pill">Multiple page sizes</span>
+        <span class="pill">No cloud</span>
+      </div>
+      <div class="app-links">
+        <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.shafat.img_to_pdf" target="_blank">▶ Google Play</a>
+        <a class="btn-outline" href="https://shafatrasool.github.io/image-to-pdf-privacy-policy/" target="_blank">🔒 Privacy Policy</a>
+      </div>
+    </div>
 
     <!-- PDF Manager -->
-    <h3>📄 PDF Manager – Editor & Viewer</h3>
-    <p>
-      An all-in-one PDF utility that allows users to view, split, merge, lock,
-      watermark, and convert images into PDFs directly on their device.
-    </p>
-    <ul>
-      <li>All PDF processing happens locally on the device</li>
-      <li>No files are uploaded to any server</li>
-      <li>Generated files are saved to the device’s Download directory</li>
-      <li>User has full control over created and modified documents</li>
-    </ul>
-    <a
-      class="button"
-      href="https://play.google.com/store/apps/details?id=com.shafat.pdf_manager"
-      target="_blank"
-    >
-      View on Google Play
-    </a>
+    <div class="app-card">
+      <div class="app-card-header">
+        <img src="https://shafatrasool.github.io/icons/pdm_icon.jpeg" width="54" height="54" style="border-radius:14px;object-fit:cover;flex-shrink:0;">
+        <div class="app-meta">
+          <div class="app-name">PDF Manager – Editor &amp; Viewer</div>
+          <div class="app-tagline">All-in-one PDF utility</div>
+        </div>
+        <span class="app-status live">Live</span>
+      </div>
+      <p class="app-desc">View, split, merge, lock, watermark, and convert images into PDFs directly on your device. All processing is local — no files are ever uploaded to any server.</p>
+      <div class="feature-pills">
+        <span class="pill">Merge &amp; split</span>
+        <span class="pill">Watermark</span>
+        <span class="pill">Password lock</span>
+        <span class="pill">No uploads</span>
+      </div>
+      <div class="app-links">
+        <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.shafat.pdf_manager" target="_blank">▶ Google Play</a>
+        <a class="btn-outline" href="https://shafatrasool.github.io/pdf-manager-privacy-policy/" target="_blank">🔒 Privacy Policy</a>
+      </div>
+    </div>
 
-    <p style="margin-top: 6px;">
-      <strong>Privacy Policy:</strong>
-      <a href="https://shafatrasool.github.io/pdf-manager-privacy-policy/" target="_blank">
-        View Privacy Policy
-      </a>
-    </p>
-  </section>
+    <!-- NoCloud Password Manager -->
+    <div class="app-card">
+      <div class="app-card-header">
+        <img src="https://shafatrasool.github.io/icons/no-cloud_logo.jpg" width="54" height="54" style="border-radius:14px;object-fit:cover;flex-shrink:0;">
+        <div class="app-meta">
+          <div class="app-name">NoCloud Password Manager</div>
+          <div class="app-tagline">Offline, encrypted credential storage</div>
+        </div>
+        <span class="app-status live">Live</span>
+      </div>
+      <p class="app-desc">Securely store your passwords using strong encryption — entirely offline. No cloud, no servers, no syncing. Your credentials never leave your device.</p>
+      <div class="feature-pills">
+        <span class="pill">Fully offline</span>
+        <span class="pill">Encrypted storage</span>
+        <span class="pill">No account needed</span>
+        <span class="pill">Zero data sharing</span>
+      </div>
+      <div class="app-links">
+        <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.shafat.nocloudpasswordmanager" target="_blank">▶ Google Play</a>
+        <a class="btn-outline" href="https://shafatrasool.github.io/nocloud-privacy/" target="_blank">🔒 Privacy Policy</a>
+      </div>
+    </div>
 
-  <!-- ADS -->
-  <section>
-    <h2>Advertising</h2>
-    <p>
-      Some apps may display advertisements provided by Google AdMob.
-      AdMob may collect limited device information as per Google’s own privacy policies.
-      The developer does not collect or store personal user data.
-    </p>
-  </section>
+    <div class="section-label">Our Commitment</div>
 
-  <!-- CONTACT -->
-  <section>
-    <h2>Contact</h2>
-    <p>
-      If you have any questions, feedback, or privacy concerns, you can contact:
-    </p>
-    <p>
-      📧 <a href="mailto:shafatrasool050@gmail.com">shafatrasool050@gmail.com</a>
-    </p>
-  </section>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-icon">🛡️</div>
+        <h3>Privacy First</h3>
+        <p>No personal data is collected, stored, or shared. All processing stays on your device.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">📵</div>
+        <h3>No Accounts</h3>
+        <p>None of our apps require login or account creation of any kind.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">📦</div>
+        <h3>Minimal Permissions</h3>
+        <p>We only request permissions strictly necessary for the app to function.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">📢</div>
+        <h3>Ads via AdMob</h3>
+        <p>Some apps show ads via Google AdMob. No personal files are ever shared with advertisers.</p>
+      </div>
+    </div>
 
-</main>
+    <div class="section-label">Contact</div>
 
-<footer>
-  © 2025 Shafat Rasool. All rights reserved.
-</footer>
+    <div class="contact-card">
+      <h3>Get in Touch</h3>
+      <p>Questions, feedback, or privacy concerns? We respond as soon as possible.</p>
+      <a href="mailto:shafatrasool050@gmail.com">✉ shafatrasool050@gmail.com</a>
+    </div>
+
+    <footer>
+      Shafat Rasool &nbsp;&middot;&nbsp; Android Developer &nbsp;&middot;&nbsp; Last updated May 2026
+    </footer>
+
+  </div>
 
 </body>
 </html>
